@@ -89,6 +89,116 @@ public class UserService {
 		return userList;
 	}
 
+	/** 3. User 중 이름에 검색어가 포함된 회원 조회 서비스
+	 * @param keyword : 입력한 키워드
+	 * @return searchList : 조회된 회원 리스트
+	 */
+	public List<User> selectName(String keyword) throws Exception {
+		
+		// 1. 커넥션 생성
+		Connection conn = getConnection();
+		
+		// 2. 데이터 가공(없으면 패스)
+		
+		// 3. DAO 메서드 호출 후 결과 반환받기
+		List<User> searchList = dao.selectName(conn, keyword);
+		
+		// 4. DML인 경우 트랜잭션 처리(SELECT 패스)
+		
+		// 5. 커넥션 반환
+		close(conn);
+		
+		// 6. 결과 반환
+		return searchList;
+	}
+
+	/** 4. USER_NO를 입력 받아 일치하는 User 조회 서비스
+	 * @param input 입력한 사용자번호
+	 * @return User (조회된 회원 정보 객체 또는 null)
+	 */
+	public User selectUser(int input) throws Exception {
+	
+		// 1. 커넥션 생성
+		Connection conn = getConnection();
+		
+		// 2. dao 호출 결과반환
+		User user = dao.selectUser(conn, input);
+		
+		// 3. 커넥션 반환
+		close(conn);
+		
+		// 4. 결과 반환
+		return user;
+	}
+
+	/** USER_NO를 입력 받아 일치하는 User 삭제 서비스
+	 * @param input
+	 * @return result
+	 */
+	public int deleteUser(int input) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.deleteUser(conn, input);
+		
+		// 결과에 따라 트랜잭션 제어 처리
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	/** ID, PW가 일치하는 회원의 USER_NO 조회
+	 * @param userId
+	 * @param userPw
+	 * @return userNo
+	 */
+	public int selectUserNo(String userId, String userPw) throws Exception{
+		
+		Connection conn = getConnection(); // 커넥션 생성
+		
+		// DAO 호출 후 결과 반환 받기
+		int userNo = dao.selectUser(conn, userId, userPw);
+		
+		close(conn); // 커넥션 반환
+		
+		return userNo; // 결과 반환
+	}
+
+	/** userNo가 일치하는 User의 이름 수정 서비스
+	 * @param userName
+	 * @param userNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateName(String userName, int userNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateName(conn, userName, userNo);
+		
+		// 트랜잭션 제어
+		if(result > 0) commit(conn);
+		else		   rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
