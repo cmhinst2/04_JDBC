@@ -19,6 +19,14 @@ public interface TodoListDAO {
 	 */
 	int getCompleteCount(Connection conn) throws Exception;
 
+	/** 할 일 추가
+	 * @param conn
+	 * @param title
+	 * @param detail
+	 * @return
+	 */
+	int todoAdd(Connection conn, String title, String detail) throws Exception;
+
 	
 	
 	

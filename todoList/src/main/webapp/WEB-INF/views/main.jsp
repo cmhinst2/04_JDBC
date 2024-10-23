@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,8 +15,8 @@
 <body>
   <h1>Todo List</h1>
 
-  <h3>전체 Todo 개수 :  / 
-      완료된 Todo 개수 : </h3>
+  <h3>전체 Todo 개수 : ${fn:length(todoList)} / 
+      완료된 Todo 개수 : ${completeCount}</h3>
 
   <hr>
 
@@ -45,28 +48,44 @@
     </thead>
   
     <tbody>
-      
+      <c:forEach items="${todoList}" varStatus="vs" var="todo">
         <tr>
-        	
-          <th></th> <%-- 단순 출력 번호 --%>
-          <th></th> <%-- todoNo --%>
+          <th>${vs.count}</th> <%-- 단순 출력 번호 --%>
+          <th>${todo.todoNo}</th> <%-- todoNo --%>
 
           <td>
-          <%-- 제목 --%>
-            <a href=""></a>
+          	<%-- 제목 --%>
+            <a href="">${todo.title}</a>
           </td>
 
           <%-- 완료 여부 --%>
-          <th></th>
+          <th>
+          	<c:if test="${todo.complete}">O</c:if> <%-- todo의 complete가 true 라면 O 출력 --%>
+          	<c:if test="${not todo.complete}">X</c:if> <%-- todo의 complete가 true가 아니라면 X 출력 --%>
+          </th>
 
 			
-          <td></td><%-- 등록일 --%>
+          <td>${todo.regDate}</td><%-- 등록일 --%>
         </tr>
+       </c:forEach>
     </tbody>
   </table>
+  
+  <%-- session 범위에 message가 있을 경우 --%>
+  <c:if test="${not empty sessionScope.message}">
+  	<script>
+  		alert("${message}");
+  		// JSP 해석 우선순위
+  		// 1 순위 : Java(EL/JSTL)
+  		// 2 순위 : Front(HTML,CSS,JS)
+  	</script>
+  	
+  	<%-- message를 한 번만 출력하고 제거 --%>
+  	<c:remove var="message" scope="session"/>
+  </c:if>
 
 
   <%-- JS 연결 --%>
-  <script src=""></script>
+  <script src="/resources/js/main.js"></script>
 </body>
 </html>

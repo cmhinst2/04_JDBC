@@ -114,6 +114,31 @@ public class TodoListDAOImpl implements TodoListDAO{
 		
 		return completeCount;
 	}
+
+	@Override
+	public int todoAdd(Connection conn, String title, String detail) throws Exception{
+		
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("todoAdd");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, detail);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
 	
 	
 	

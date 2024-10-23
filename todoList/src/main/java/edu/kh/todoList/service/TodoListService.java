@@ -9,4 +9,11 @@ public interface TodoListService {
 	 */
 	Map<String, Object> todoListFullView() throws Exception;
 
+	/** 할 일 추가 서비스
+	 * @param title
+	 * @param detail
+	 * @return int 성공 시 추가된 행의 개수 / 실패 시 0 반환
+	 */
+	int todoAdd(String title, String detail) throws Exception;
+
 }

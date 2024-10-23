@@ -23,7 +23,11 @@
 	</entry>
 	
 	
-	
+	<!-- 할 일 추가 -->
+	<entry key="todoAdd">
+		INSERT INTO TB_TODO
+		VALUES(SEQ_TODO_NO.NEXTVAL, ?, ?, DEFAULT, DEFAULT)
+	</entry>
 	
 	
 	
