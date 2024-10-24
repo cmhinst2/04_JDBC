@@ -27,6 +27,13 @@ public interface TodoListDAO {
 	 */
 	int todoAdd(Connection conn, String title, String detail) throws Exception;
 
+	/** 할 일 상세 조회 
+	 * @param conn
+	 * @param todoNo
+	 * @return todo 객체 or null
+	 */
+	Todo todoDetailView(Connection conn, int todoNo) throws Exception;
+
 	
 	
 	

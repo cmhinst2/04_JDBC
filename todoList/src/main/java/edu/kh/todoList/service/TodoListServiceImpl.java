@@ -52,6 +52,19 @@ public class TodoListServiceImpl implements TodoListService{
 		
 		return result;
 	}
+
+	
+	@Override
+	public Todo todoDetailView(int todoNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		Todo todo = dao.todoDetailView(conn, todoNo);
+		
+		close(conn);
+		
+		return todo;
+	}
 	
 	
 	

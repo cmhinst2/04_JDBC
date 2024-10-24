@@ -139,6 +139,45 @@ public class TodoListDAOImpl implements TodoListDAO{
 		
 		return result;
 	}
+
+	
+	@Override
+	public Todo todoDetailView(Connection conn, int todoNo) throws Exception{
+		
+		Todo todo = null; // 결과 저장용 변수 선언
+		
+		try {
+			
+			String sql = prop.getProperty("todoDetailView");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, todoNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				boolean complete = rs.getInt("TODO_COMPLETE") == 1;
+				
+				todo = Todo.builder()
+						.todoNo(rs.getInt("TODO_NO"))
+						.title(rs.getString("TODO_TITLE"))
+						.detail(rs.getString("TODO_DETAIL"))
+						.complete(complete)
+						.regDate(rs.getString("REG_DATE"))
+						.build();
+				
+				
+			}
+			
+			
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return todo;
+	}
 	
 	
 	

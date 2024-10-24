@@ -30,6 +30,16 @@
 	</entry>
 	
 	
+	<!-- 할 일 상세 조회 -->
+	<entry key="todoDetailView">
+		SELECT TODO_NO, 
+			TODO_TITLE,
+			TODO_DETAIL,
+			TODO_COMPLETE,
+			TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI:SS') REG_DATE
+		FROM TB_TODO
+		WHERE TODO_NO = ?
+	</entry>
 	
 	
 	
