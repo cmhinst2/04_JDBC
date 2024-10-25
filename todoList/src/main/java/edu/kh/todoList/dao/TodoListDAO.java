@@ -51,6 +51,14 @@ public interface TodoListDAO {
 	int todoUpdate(Connection conn, int todoNo, 
 				String title, String detail) throws Exception;
 
+	/** 할 일 삭제
+	 * @param conn
+	 * @param todoNo
+	 * @return
+	 * @throws Exception
+	 */
+	int todoDelete(Connection conn, int todoNo) throws Exception;
+
 	
 	
 	

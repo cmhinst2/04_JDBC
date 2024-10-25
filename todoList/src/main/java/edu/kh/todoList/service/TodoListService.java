@@ -38,6 +38,13 @@ public interface TodoListService {
 	 */
 	int todoUpdate(int todoNo, String title, String detail) throws Exception;
 	
+	/** 할 일 삭제
+	 * @param todoNo
+	 * @return result
+	 * @throws Exception
+	 */
+	int todoDelete(int todoNo) throws Exception;
+	
 	
 	
 	

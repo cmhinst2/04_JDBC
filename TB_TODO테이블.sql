@@ -60,6 +60,35 @@ ORDER BY TODO_NO ASC;
 
 
 -- 완료된 할 일 개수 조회
+SELECT COUNT(*)
+FROM TB_TODO
+WHERE TODO_NO > 0
+AND TODO_COMPLETE = 1;
+
+
+-- 할 일 상세 조회
+SELECT TODO_NO, 
+	TODO_TITLE,
+	TODO_DETAIL,
+	TODO_COMPLETE,
+	TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI:SS') REG_DATE
+FROM TB_TODO
+WHERE TODO_NO = 1;
+
+
+DROP TABLE TB_STUDENT;
+CREATE TABLE TB_STUDENT (
+    STD_NO      NUMBER PRIMARY KEY,                          -- 학생 번호 (PK)
+    STD_NAME    VARCHAR2(20) NOT NULL,                       -- 학생 이름
+    STD_AGE     NUMBER NOT NULL,                             -- 학생 나이
+    STD_GENDER  CHAR(1) CHECK (STD_GENDER IN ('남', '여')),    -- 학생 성별 (M/F 제한)
+    STD_SCORE   CHAR(1) CHECK (STD_SCORE IN ('A', 'B', 'C', 'D', 'F')) -- 학생 성적 (A-F 제한)
+);
+
+INSERT INTO TB_STUDENT VALUES(1, '길동', 20, '남', 'A');
+
+
+
 
 
 
